@@ -23,17 +23,16 @@
 
 - (void)pluginInitialize
 {
-  [self init];
-}
-
-- (void)init
-{
+  // NOTE: Do not override NSObject's -init here. Cordova's base
+  // -[CDVPlugin initWithWebViewEngine:] runs `self = [self init]`, so a
+  // void-returning -init corrupts `self` (was crashing on cordova-ios 8).
+  // Plugin setup belongs in pluginInitialize.
   self->trueTimeClient = [TrueTimeClient sharedInstance];
   // I don't know the full details behind the "why"; but, I don't think TrueTime works with hosts that don't support ipv6.
   // This holds true even if we only use ipv4.
   // time.apple.com doesn't support ipv6. TrueTime wouldn't initiate properly.
   // time.google.com supports both v4 and v6. TrueTime initiates properly.
-  // port was originally for time.apple.com; but, appears to work with google anyways. 
+  // port was originally for time.apple.com; but, appears to work with google anyways.
   [self->trueTimeClient startWithPool:@[@"time.google.com"] port:123];
 }
 
