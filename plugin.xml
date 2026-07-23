@@ -21,7 +21,6 @@
     </config-file>
     <header-file src="src/ios/CDVTPDate.h" />
     <source-file src="src/ios/CDVTPDate.m" />
-    <!-- <source-file src="src/ios/DateSwiftHack.swift" /> -->
 
     <podspec>
       <pods>
@@ -40,8 +39,4 @@
     <framework src="src/android/tpdate-gradle.gradle" custom="true" type="gradleReference" />
     <source-file src="src/android/TPDate.java" target-dir="src/com/totalpave/date" />
   </platform>
-
-  <!-- <hook src="hooks/updateXCConfig.js" type="after_prepare" />
-  <hook src="hooks/updateXCConfig.js" type="before_prepare" />
-  <hook src="hooks/updateXCConfig.js" type="before_compile" /> -->
 </plugin>
