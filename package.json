@@ -1,6 +1,6 @@
 {
   "name": "@totalpave/cordova-plugin-date",
-  "version": "2.0.0",
+  "version": "3.0.0-dev.0",
   "author": "Total Pave Inc.",
   "bugs": {
     "url": "https://github.com/totalpave/cordova-plugin-date/issues"
@@ -50,12 +50,5 @@
   "directories": {
     "test": "tests"
   },
-  "dependencies": {
-    "elementtree": "0.1.7",
-    "lodash": "4.18.1",
-    "plist": "4.0.0",
-    "q": "2.0.3",
-    "tostr": "0.1.0",
-    "xcode": "3.0.1"
-  }
+  "dependencies": {}
 }

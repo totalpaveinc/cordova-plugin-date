@@ -7,7 +7,7 @@ var TAG = "cordova-plugin-clock";
 var SCRIPT_NAME = "updateXCConfig.js";
 
 // Pre-existing Cordova npm modules
-var deferral, path, cwd;
+var path, cwd;
 
 // Npm dependencies
 var logger,
@@ -709,11 +709,10 @@ var applyCustomConfig = (function(){
     }
 
     /**
-     * Script operations are complete, so resolve deferred promises
+     * Script operations are complete
      */
     function complete(){
         logger.verbose("Finished applying platform config");
-        deferral.resolve();
     }
 
     function checkComplete(){
@@ -804,7 +803,7 @@ var applyCustomConfig = (function(){
         //         logger.error(msg);
         //         logger.dump(e);
         //         if(settings.stoponerror){
-        //             deferral.reject(TAG + ": " +msg);
+        //             throw new Error(TAG + ": " +msg);
         //         }
         //     }
         // });
@@ -813,11 +812,10 @@ var applyCustomConfig = (function(){
 })();
 
 // Main
-module.exports = function(ctx) {
+module.exports = async function(ctx) {
     if (!ctx.opts.cordova.platforms.includes('ios')) return;
-    
+
     try{
-        deferral = require('q').defer();
         path = require('path');
         cwd = path.resolve();
 
@@ -827,10 +825,6 @@ module.exports = function(ctx) {
         applyCustomConfig.loadDependencies(ctx);
     }catch(e){
         e.message = TAG + ": Error loading dependencies for "+SCRIPT_NAME+" - ensure the plugin has been installed via cordova-fetch or run 'npm install cordova-custom-clock': "+e.message;
-        if(typeof deferral !== "undefined"){
-            deferral.reject(e.message);
-            return deferral.promise;
-        }
         throw e;
     }
 
@@ -839,12 +833,6 @@ module.exports = function(ctx) {
         applyCustomConfig.init(ctx);
     }catch(e){
         e.message = TAG + ": Error running "+SCRIPT_NAME+": "+e.message;
-        if(typeof deferral !== "undefined"){
-            deferral.reject(e.message);
-            return deferral.promise;
-        }
         throw e;
     }
-
-    return deferral.promise;
 };
